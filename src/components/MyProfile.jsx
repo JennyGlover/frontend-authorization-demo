@@ -1,13 +1,13 @@
 import NavBar from "./NavBar";
 import "./styles/MyProfile.css";
 
-function MyProfile({
-  userData = { username: "Username here", email: "Email here" },
+function MyProfile({ 
+  userData = { username: "Username here", email: "Email here" }
 }) {
   const { username, email } = userData;
   return (
     <>
-      <NavBar />
+      <NavBar/>
       <div className="my-profile">
         <div className="my-profile__container">
           <div className="my-profile__header">

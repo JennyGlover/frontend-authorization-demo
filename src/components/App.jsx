@@ -1,4 +1,5 @@
 import { Routes, Route, Navigate, useNavigate, useLocation } from "react-router-dom";
+import AppContext from "../context/AppContext";
 import { useEffect } from "react";
 import { useState } from "react";
 import Ducks from "./Ducks";
@@ -79,11 +80,12 @@ function App() {
   }, []);
 
   return (
+    <AppContext.Provider value={{ isLoggedIn, setIsLoggedIn }}>
     <Routes>
       <Route
         path="/ducks"
         element={
-          <ProtectedRoute isLoggedIn={isLoggedIn}>
+          <ProtectedRoute>
             <Ducks />
           </ProtectedRoute>
         }
@@ -91,15 +93,15 @@ function App() {
       <Route
         path="/my-profile"
         element={
-          <ProtectedRoute isLoggedIn={isLoggedIn}>
-            <MyProfile userData={userData} />
+          <ProtectedRoute>
+            <MyProfile userData={userData}/>
           </ProtectedRoute>
         }
       />
       <Route
         path="/login"
         element={
-          <ProtectedRoute isLoggedIn={isLoggedIn} anonymous>
+          <ProtectedRoute anonymous>
           <div className="loginContainer">
             <Login handleLogin={handleLogin} />
           </div>
@@ -109,7 +111,7 @@ function App() {
       <Route
         path="/register"
         element={
-          <ProtectedRoute isLoggedIn={isLoggedIn} anonymous>
+          <ProtectedRoute anonymous>
           <div className="registerContainer">
             <Register handleRegistration={handleRegistration} />
           </div>
@@ -127,6 +129,7 @@ function App() {
         }
       />
     </Routes>
+    </AppContext.Provider>
   );
 }
 
